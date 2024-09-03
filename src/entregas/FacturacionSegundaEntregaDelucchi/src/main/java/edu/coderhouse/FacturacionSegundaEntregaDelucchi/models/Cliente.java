@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idCliente;
+    private int idCliente;
 
     @Column(name = "NOMBRE")
     private String nombre;
@@ -23,7 +23,7 @@ public class Cliente {
     private long dni;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Venta> venta;
+    private List<Venta> ventas;
 
     public Cliente() {
     }
@@ -34,11 +34,11 @@ public class Cliente {
         this.dni = dni;
     }
 
-    public long getIdCliente() {
+    public int getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(long idCliente) {
+    public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
@@ -66,12 +66,12 @@ public class Cliente {
         this.dni = dni;
     }
 
-    public List<Venta> getVenta() {
-        return venta;
+    public List<Venta> getVentas() {
+        return ventas;
     }
 
-    public void setVenta(List<Venta> venta) {
-        this.venta = venta;
+    public void setVenta(List<Venta> ventas) {
+        this.ventas = ventas;
     }
 
     @Override
@@ -79,12 +79,12 @@ public class Cliente {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return idCliente == cliente.idCliente && dni == cliente.dni && Objects.equals(nombre, cliente.nombre) && Objects.equals(apellido, cliente.apellido) && Objects.equals(venta, cliente.venta);
+        return idCliente == cliente.idCliente && dni == cliente.dni && Objects.equals(nombre, cliente.nombre) && Objects.equals(apellido, cliente.apellido) && Objects.equals(ventas, cliente.ventas);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idCliente, nombre, apellido, dni, venta);
+        return Objects.hash(idCliente, nombre, apellido, dni, ventas);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class Cliente {
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", dni=" + dni +
-                ", venta=" + venta +
+                ", ventas=" + ventas +
                 '}';
     }
 }
