@@ -1,5 +1,6 @@
 package edu.coderhouse.FacturacionSegundaEntregaDelucchi.controllers;
 
+import edu.coderhouse.FacturacionSegundaEntregaDelucchi.models.Cliente;
 import edu.coderhouse.FacturacionSegundaEntregaDelucchi.models.Producto;
 import edu.coderhouse.FacturacionSegundaEntregaDelucchi.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,13 +19,13 @@ public class ProductoController {
     @Autowired
     private ProductoService productoService;
 
-    @GetMapping(value = "/producto/{idProducto}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> getProductoById(@PathVariable(name = "idProducto") Integer idProducto) {
-        Optional<Producto> producto = productoService.buscarProductoById(idProducto);
-        if (producto.isPresent()) {
-            return ResponseEntity.ok(producto);
+    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<List<Producto>> getProductos() {
+        List<Producto> productos = productoService.buscarProductos();
+        if (productos.isEmpty()) {
+            return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(productos);
         }
     }
 
@@ -35,6 +37,16 @@ public class ProductoController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body(null);
+        }
+    }
+
+    @GetMapping(value = "/producto/{idProducto}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> getProductoById(@PathVariable(name = "idProducto") Integer idProducto) {
+        Optional<Producto> producto = productoService.buscarProductoById(idProducto);
+        if (producto.isPresent()) {
+            return ResponseEntity.ok(producto);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }
