@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,13 +18,13 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    @GetMapping(value = "/cliente/{idCliente}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> getClienteById(@PathVariable(name = "idCliente") Integer idCliente) {
-        Optional<Cliente> cliente = clienteService.buscarClienteById(idCliente);
-        if (cliente.isPresent()) {
-            return ResponseEntity.ok(cliente);
+    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<List<Cliente>> getClientes() {
+        List<Cliente> clientes = clienteService.buscarClientes();
+        if (clientes.isEmpty()) {
+            return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(clientes);
         }
     }
 
@@ -35,6 +36,16 @@ public class ClienteController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body(null);
+        }
+    }
+
+    @GetMapping(value = "/cliente/{idCliente}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> getClienteById(@PathVariable(name = "idCliente") Integer idCliente) {
+        Optional<Cliente> cliente = clienteService.buscarClienteById(idCliente);
+        if (cliente.isPresent()) {
+            return ResponseEntity.ok(cliente);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }
