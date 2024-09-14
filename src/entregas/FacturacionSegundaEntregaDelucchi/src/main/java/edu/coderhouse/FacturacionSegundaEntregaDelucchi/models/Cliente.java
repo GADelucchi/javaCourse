@@ -22,8 +22,8 @@ public class Cliente {
     @Column(name = "DNI")
     private long dni;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Venta> ventas;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Venta> compras;
 
     public Cliente() {
     }
@@ -66,12 +66,12 @@ public class Cliente {
         this.dni = dni;
     }
 
-    public List<Venta> getVentas() {
-        return ventas;
+    public List<Venta> getCompras() {
+        return compras;
     }
 
-    public void setVenta(List<Venta> ventas) {
-        this.ventas = ventas;
+    public void setVenta(List<Venta> compras) {
+        this.compras = compras;
     }
 
     @Override
@@ -79,12 +79,12 @@ public class Cliente {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return idCliente == cliente.idCliente && dni == cliente.dni && Objects.equals(nombre, cliente.nombre) && Objects.equals(apellido, cliente.apellido) && Objects.equals(ventas, cliente.ventas);
+        return idCliente == cliente.idCliente && dni == cliente.dni && Objects.equals(nombre, cliente.nombre) && Objects.equals(apellido, cliente.apellido) && Objects.equals(compras, cliente.compras);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idCliente, nombre, apellido, dni, ventas);
+        return Objects.hash(idCliente, nombre, apellido, dni, compras);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class Cliente {
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", dni=" + dni +
-                ", ventas=" + ventas +
+                ", compras=" + compras +
                 '}';
     }
 }

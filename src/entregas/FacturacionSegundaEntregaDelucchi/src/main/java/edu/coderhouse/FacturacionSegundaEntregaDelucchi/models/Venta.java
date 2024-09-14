@@ -14,17 +14,12 @@ public class Venta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idVenta;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "idCliente")
     private Cliente cliente;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "venta_producto",
-            joinColumns = @JoinColumn(name = "idVenta"),
-            inverseJoinColumns = @JoinColumn(name = "idProducto")
-    )
-    private List<Producto> productos;
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
+    private List<VentaProducto> ventaProductos;
 
     @Column(name = "FECHA")
     private LocalDate fecha = LocalDate.now();
@@ -38,18 +33,14 @@ public class Venta {
     public Venta() {
     }
 
-    public Venta(Cliente cliente, List<Producto> productos, int cantidad) {
+    public Venta(Cliente cliente, List<VentaProducto> productos, int cantidad) {
         this.cliente = cliente;
-        this.productos = productos;
+        this.ventaProductos = productos;
         this.cantidad = cantidad;
     }
 
     public long getIdVenta() {
         return idVenta;
-    }
-
-    public void setIdVenta(int idVenta) {
-        this.idVenta = idVenta;
     }
 
     public LocalDate getFecha() {
@@ -68,12 +59,12 @@ public class Venta {
         this.cliente = cliente;
     }
 
-    public List<Producto> getProductos() {
-        return productos;
+    public List<VentaProducto> getVentaProductos() {
+        return ventaProductos;
     }
 
-    public void setProducto(List<Producto> productos) {
-        this.productos = productos;
+    public void setVentaProductos(List<VentaProducto> ventaProductos) {
+        this.ventaProductos = ventaProductos;
     }
 
     public int getCantidad() {
@@ -97,12 +88,12 @@ public class Venta {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Venta venta = (Venta) o;
-        return idVenta == venta.idVenta && cantidad == venta.cantidad && Double.compare(total, venta.total) == 0 && Objects.equals(fecha, venta.fecha) && Objects.equals(cliente, venta.cliente) && Objects.equals(productos, venta.productos);
+        return idVenta == venta.idVenta && cantidad == venta.cantidad && Double.compare(total, venta.total) == 0 && Objects.equals(fecha, venta.fecha) && Objects.equals(cliente, venta.cliente) && Objects.equals(ventaProductos, venta.ventaProductos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idVenta, fecha, cliente, productos, cantidad, total);
+        return Objects.hash(idVenta, fecha, cliente, ventaProductos, cantidad, total);
     }
 
     @Override

@@ -25,9 +25,6 @@ public class Producto {
     @Column(name = "PRECIO")
     private double precio;
 
-    @ManyToMany(mappedBy = "productos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Venta> venta;
-
     public Producto() {
     }
 
@@ -40,10 +37,6 @@ public class Producto {
 
     public long getIdProducto() {
         return idProducto;
-    }
-
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
     }
 
     public String getNombre() {
@@ -78,25 +71,17 @@ public class Producto {
         this.precio = precio;
     }
 
-    public List<Venta> getVenta() {
-        return venta;
-    }
-
-    public void setVenta(List<Venta> venta) {
-        this.venta = venta;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Producto producto = (Producto) o;
-        return idProducto == producto.idProducto && Double.compare(precio, producto.precio) == 0 && Objects.equals(nombre, producto.nombre) && Objects.equals(marca, producto.marca) && Objects.equals(descripcion, producto.descripcion) && Objects.equals(venta, producto.venta);
+        return idProducto == producto.idProducto && Double.compare(precio, producto.precio) == 0 && Objects.equals(nombre, producto.nombre) && Objects.equals(marca, producto.marca) && Objects.equals(descripcion, producto.descripcion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idProducto, nombre, marca, descripcion, precio, venta);
+        return Objects.hash(idProducto, nombre, marca, descripcion, precio);
     }
 
     @Override
@@ -107,7 +92,6 @@ public class Producto {
                 ", marca='" + marca + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", precio=" + precio +
-                ", venta=" + venta +
                 '}';
     }
 }
