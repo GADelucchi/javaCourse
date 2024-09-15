@@ -26,12 +26,15 @@ public class Sale {
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
     private List<ProductSale> productSales;
 
+    @Transient
+    private double total;
+
     public Sale() {
     }
 
-    public Sale(LocalDate date, Client client) {
+    public Sale(LocalDate date, double total) {
         this.date = date;
-        this.client = client;
+        this.total = total;
     }
 
     public int getIdSale() {
@@ -62,17 +65,25 @@ public class Sale {
         this.productSales = productSales;
     }
 
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Sale sale = (Sale) o;
-        return idSale == sale.idSale && Objects.equals(date, sale.date) && Objects.equals(client, sale.client) && Objects.equals(productSales, sale.productSales);
+        return idSale == sale.idSale && Objects.equals(date, sale.date) && Objects.equals(client, sale.client) && Objects.equals(productSales, sale.productSales) && Objects.equals(total, sale.total);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idSale, date, client, productSales);
+        return Objects.hash(idSale, date, client, productSales, total);
     }
 
     @Override
@@ -82,6 +93,7 @@ public class Sale {
                 ", date=" + date +
                 ", client=" + client +
                 ", productSales=" + productSales +
+                ", total=" + total +
                 '}';
     }
 }

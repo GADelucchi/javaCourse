@@ -1,6 +1,8 @@
 package edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
@@ -14,15 +16,18 @@ public class Product {
     @Column(name = "ID_PRODUCT")
     private int idProduct;
 
+    @NotBlank(message = "Name is required")
     @Column(name = "NAME")
     private String name;
 
+    @NotBlank(message = "Brand is required")
     @Column(name = "BRAND")
     private String brand;
 
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @NotNull(message = "Price is required")
     @Column(name = "PRICE")
     private double price;
 

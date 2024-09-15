@@ -1,6 +1,8 @@
 package edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
@@ -22,6 +24,7 @@ public class ProductSale {
     @JoinColumn(name = "ID_PRODUCT")
     private Product product;
 
+    @NotNull(message = "Quantity is required")
     @Column(name = "QUANTITY")
     private int quantity;
 
