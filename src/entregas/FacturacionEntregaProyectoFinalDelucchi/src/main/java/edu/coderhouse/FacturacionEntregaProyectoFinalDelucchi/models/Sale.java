@@ -1,7 +1,8 @@
 package edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.models;
 
+// Imports
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +18,7 @@ public class Sale {
     private int idSale;
 
     @Column(name = "DATE")
-    private LocalDate date = LocalDate.now();
+    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "ID_CLIENT")
@@ -26,9 +27,9 @@ public class Sale {
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
     private List<ProductSale> productSales;
 
-    @Transient
     private double total;
 
+//    Constructors
     public Sale() {
     }
 
@@ -37,6 +38,7 @@ public class Sale {
         this.total = total;
     }
 
+//    Getters and Setters
     public int getIdSale() {
         return idSale;
     }
@@ -73,6 +75,7 @@ public class Sale {
         this.total = total;
     }
 
+//    Equal and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,6 +89,7 @@ public class Sale {
         return Objects.hash(idSale, date, client, productSales, total);
     }
 
+//    toString
     @Override
     public String toString() {
         return "Sale{" +

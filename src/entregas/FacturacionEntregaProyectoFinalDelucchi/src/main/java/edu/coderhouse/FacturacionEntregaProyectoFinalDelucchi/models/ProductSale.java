@@ -1,13 +1,12 @@
 package edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.models;
 
+// Imports
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 import java.util.Objects;
 
 @Entity
-@Table(name = "PRODUCTSALES")
+@Table(name = "PRODUCT_SALES")
 
 public class ProductSale {
 
@@ -18,16 +17,17 @@ public class ProductSale {
 
     @ManyToOne
     @JoinColumn(name = "ID_SALE")
+    @JsonIgnore
     private Sale sale;
 
     @ManyToOne
     @JoinColumn(name = "ID_PRODUCT")
     private Product product;
 
-    @NotNull(message = "Quantity is required")
     @Column(name = "QUANTITY")
     private int quantity;
 
+//    Constructors
     public ProductSale() {
     }
 
@@ -35,6 +35,7 @@ public class ProductSale {
         this.quantity = quantity;
     }
 
+//    Getters and Setters
     public int getIdProductSale() {
         return idProductSale;
     }
@@ -63,6 +64,7 @@ public class ProductSale {
         this.quantity = quantity;
     }
 
+//    Equal and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,6 +78,7 @@ public class ProductSale {
         return Objects.hash(idProductSale, sale, product, quantity);
     }
 
+//    toString
     @Override
     public String toString() {
         return "ProductSale{" +

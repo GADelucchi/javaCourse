@@ -1,9 +1,7 @@
 package edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.models;
 
+// Imports
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 import java.util.Objects;
 
 @Entity
@@ -16,21 +14,19 @@ public class Product {
     @Column(name = "ID_PRODUCT")
     private int idProduct;
 
-    @NotBlank(message = "Name is required")
     @Column(name = "NAME")
     private String name;
 
-    @NotBlank(message = "Brand is required")
     @Column(name = "BRAND")
     private String brand;
 
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @NotNull(message = "Price is required")
     @Column(name = "PRICE")
     private double price;
 
+//    Constructors
     public Product() {
     }
 
@@ -41,6 +37,7 @@ public class Product {
         this.price = price;
     }
 
+//    Getters and Setters
     public int getIdProduct() {
         return idProduct;
     }
@@ -77,6 +74,7 @@ public class Product {
         this.price = price;
     }
 
+//    Equal and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,6 +88,7 @@ public class Product {
         return Objects.hash(idProduct, name, brand, description, price);
     }
 
+//    toString
     @Override
     public String toString() {
         return "Product{" +

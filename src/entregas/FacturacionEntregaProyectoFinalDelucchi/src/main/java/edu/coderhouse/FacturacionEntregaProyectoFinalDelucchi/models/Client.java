@@ -1,9 +1,8 @@
 package edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.models;
 
+// Imports
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -17,21 +16,20 @@ public class Client {
     @Column(name = "ID_CLIENT")
     private int idClient;
 
-    @NotBlank(message = "Name is required")
     @Column(name = "FIRST_NAME")
     private String firstName;
 
-    @NotBlank(message = "Last name is required")
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    @NotNull(message = "DNI is required")
     @Column(name = "DNI")
     private int dni;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Sale> purchases;
 
+//    Constructors
     public Client() {
     }
 
@@ -41,6 +39,7 @@ public class Client {
         this.dni = dni;
     }
 
+//    Getters and Setters
     public int getIdClient() {
         return idClient;
     }
@@ -77,6 +76,7 @@ public class Client {
         this.purchases = purchases;
     }
 
+//    Equal and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,6 +90,7 @@ public class Client {
         return Objects.hash(idClient, firstName, lastName, dni, purchases);
     }
 
+//    toString
     @Override
     public String toString() {
         return "Client{" +

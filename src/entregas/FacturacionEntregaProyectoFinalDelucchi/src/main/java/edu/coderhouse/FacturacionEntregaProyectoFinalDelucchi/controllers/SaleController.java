@@ -1,5 +1,6 @@
 package edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.controllers;
 
+import edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.models.ProductSale;
 import edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.models.Sale;
 import edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.services.SaleService;
 import jakarta.validation.Valid;
@@ -31,13 +32,10 @@ public class SaleController {
         }
     }
 
-    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> saveSale(@Valid @RequestBody Sale sale, BindingResult result) {
-        if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body(result.getAllErrors());
-        }
+    @PostMapping(value = "/{idClient}", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> saveSale(@PathVariable(name = "idClient") Integer idClient, @RequestBody ProductSale productSale) {
         try {
-            Sale savedSale = saleService.createSale(sale);
+            Sale savedSale = saleService.createSale(idClient, productSale.getProduct().getIdProduct(), productSale.getQuantity());
             return ResponseEntity.created(URI.create("/api/sales/" + savedSale.getIdSale())).body(savedSale);
         } catch (Exception e) {
             e.printStackTrace();
