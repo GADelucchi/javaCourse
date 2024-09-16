@@ -23,12 +23,17 @@ public class SaleController {
     private SaleService saleService;
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<List<Sale>> getSales() {
-        List<Sale> sales = saleService.getSales();
-        if (sales.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(sales);
+    public ResponseEntity<?> getSales() {
+        try {
+            List<Sale> sales = saleService.getSales();
+            if (sales.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            } else {
+                return ResponseEntity.ok(sales);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Error during getting sales");
         }
     }
 
@@ -39,19 +44,23 @@ public class SaleController {
             return ResponseEntity.created(URI.create("/api/sales/" + savedSale.getIdSale())).body(savedSale);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.internalServerError().body(null);
+            return ResponseEntity.internalServerError().body("Error during creating sales");
         }
     }
 
-    @GetMapping(value = "/sale/{idSale}", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(value = "/sale/{idSale}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public  ResponseEntity<?> getSaleById(@PathVariable(name = "idSale") Integer idSale) {
-        Optional<Sale> sale = saleService.findSaleById(idSale);
-        if (sale.isPresent()) {
-            // Calcular el total antes de devolver la respuesta
-            Sale saleWithTotal = saleService.calculateTotal(sale.get());
-            return ResponseEntity.ok(saleWithTotal);
-        } else {
-            return ResponseEntity.notFound().build();
+        try {
+            Optional<Sale> sale = saleService.findSaleById(idSale);
+            if (sale.isPresent()) {
+                Sale saleWithTotal = saleService.calculateTotal(sale.get());
+                return ResponseEntity.ok(saleWithTotal);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Error during getting sale");
         }
     }
 }
