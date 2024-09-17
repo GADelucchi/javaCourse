@@ -1,5 +1,6 @@
 package edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.repositories;
 
+// Imports
 import edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.models.Sale;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -2,6 +2,8 @@ package edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.models;
 
 // Imports
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 @Entity
@@ -15,15 +17,19 @@ public class Product {
     private int idProduct;
 
     @Column(name = "NAME")
+    @NotBlank
     private String name;
 
     @Column(name = "BRAND")
+    @NotBlank
     private String brand;
 
     @Column(name = "DESCRIPTION")
+    @NotBlank
     private String description;
 
     @Column(name = "PRICE")
+    @NotEmpty
     private double price;
 
 //    Constructors

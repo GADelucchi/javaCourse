@@ -1,12 +1,11 @@
 package edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.services;
 
+// Imports
 import edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.models.Client;
 import edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.repositories.ClientRepository;
-import jakarta.persistence.Transient;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;

@@ -3,6 +3,10 @@ package edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.models;
 // Imports
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.util.Objects;
 
 @Entity
@@ -22,9 +26,12 @@ public class ProductSale {
 
     @ManyToOne
     @JoinColumn(name = "ID_PRODUCT")
+    @NotNull(message = "Debes agregar al menos 1 producto")
     private Product product;
 
     @Column(name = "QUANTITY")
+    @NotEmpty(message = "Debes ingresar una cantidad")
+    @Size(min = 1, message = "Mínimo 1")
     private int quantity;
 
 //    Constructors
