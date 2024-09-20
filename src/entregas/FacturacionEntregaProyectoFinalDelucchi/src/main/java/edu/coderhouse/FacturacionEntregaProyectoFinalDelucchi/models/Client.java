@@ -4,10 +4,7 @@ package edu.coderhouse.FacturacionEntregaProyectoFinalDelucchi.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -34,8 +31,8 @@ public class Client {
     private String lastName;
 
     @Column(name = "DNI")
-    @NotEmpty(message = "Must insert DNI")
-    @Size(min = 7, message = "DMust have at least 7 digits")
+    @NotNull(message = "Must insert DNI")
+    @Min(value = 1000000, message = "Must have at least 7 digits")
     @Schema(description = "Client DNI", requiredMode = Schema.RequiredMode.REQUIRED, example = "40568729")
     private int dni;
 
